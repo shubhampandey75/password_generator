@@ -1,39 +1,37 @@
 import string
 import random
 
-def generate_password(length, use_uppercase=True, use_digits=True, use_specialchar=True):
-    # Starts with lowercase
-    characters = list(string.ascii_lowercase)
+def gen_password(len, uppercase=True, digits=True, special=True):
+    char = list(string.ascii_lowercase)
 
-    # Add characters based on user choices
-    if use_uppercase:
-        characters += list(string.ascii_uppercase)
-    if use_digits:
-        characters += list(string.digits)
-    if use_specialchar:
-        characters += list(string.punctuation)
+    #add characters based on user choice
+    if uppercase:
+        char += list(string.ascii_uppercase)
+    if digits:
+        char += list(string.digits)
+    if special:
+        char += list(string.punctuation) 
 
-    if length < 1:
-        raise ValueError("Length of password must be at least 1.")
-    if not characters:
-        raise ValueError("No character sets selected.")
-
-    # Generate password
-    password = ''.join(random.choice(characters) for _ in range(length))
+    if len < 1:
+        raise ValueError("Password should not be less than 1.")
+    if not char:
+        raise ValueError("No character selected.") 
+    
+    password = ''.join(random.choice(char) for _ in range (len))
     return password
 
 def main():
     print("Password Generator")
     try:
-        length = int(input("Enter the desired password length: "))
-        use_upper = input("Include uppercase letters(yes/no) ?: ").lower() == 'yes'
-        use_digits = input("Include digits(yes/no) ?: ").lower() == 'yes'
-        use_special = input("Include special characters(yes/no) ?: ").lower() == 'yes'
+        len = int(input("Length of the password:"))
+        uppercase = input("Include uppercase? (yes/no):").lower() == 'yes'
+        digits = input("Include digits? (yes/no)").lower() == 'yes'
+        special = input("Include special characters? (yes/no)").lower() == 'yes'
 
-        password = generate_password(length, use_upper, use_digits, use_special)
-        print("\nGenerated Password:", password)
+        password = gen_password(len, uppercase, digits, special)
+        print("\nGenerate password:", password)
     except ValueError as valerr:
         print("Error:", valerr)
 
 if __name__ == "__main__":
-    main()
+    main()    
